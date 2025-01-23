@@ -6,11 +6,16 @@ pipeline {
                 git branch: 'main', url: 'git@github.com:ashishYadavMetacube/jenkinsPythonProject.git'
             }
         }
-        stage('Install Dependencies') {
-            steps {
-                sh 'pip install -r requirements.txt'
-            }
-        }
+        stage('Setup Virtual Environment') {
+    steps {
+        sh '''
+        python3 -m venv venv
+        source venv/bin/activate
+        pip install -r requirements.txt
+        '''
+    }
+}
+
         stage('Run FastAPI with Ngrok') {
             steps {
                 sh '''
