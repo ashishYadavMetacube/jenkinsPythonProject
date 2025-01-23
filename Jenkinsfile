@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('Clone Repository') {
             steps {
-                git clone 'git@github.com:ashishYadavMetacube/jenkinsPythonProject.git
+                git clone 'git@github.com:ashishYadavMetacube/jenkinsPythonProject.git'
             }
         }
         stage('Install Dependencies') {
