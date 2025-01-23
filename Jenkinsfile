@@ -21,9 +21,9 @@ pipeline {
         sh '''
         pkill uvicorn || true
         pkill ngrok || true
-        nohup uvicorn main:app --host 0.0.0.0 --port 8000 > fastapi.log 2>&1 &
+        nohup uvicorn main:app --host 0.0.0.0 --port 8001 > fastapi.log 2>&1 &
         sleep 10
-        nohup ngrok http 8000 > ngrok.log 2>&1 &
+        nohup ngrok http 8001 > ngrok.log 2>&1 &
         sleep 10
         '''
     }
