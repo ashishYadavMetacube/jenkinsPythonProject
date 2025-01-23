@@ -23,7 +23,7 @@ stage('Run FastAPI with Ngrok') {
         pkill -f ngrok || true
 
         # Activate the virtual environment (if needed)
-        source /path/to/your/venv/bin/activate || exit 1
+        source venv/bin/activate || exit 1
 
         # Start Uvicorn (FastAPI server) in the background
         echo "Starting FastAPI with Uvicorn..."
