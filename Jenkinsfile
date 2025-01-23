@@ -1,5 +1,5 @@
 environment {
-    PATH = "/usr/local/bin:${env.PATH}"
+    PATH = "/usr/local/bin:${'/opt/homebrew/bin/ngrok'}"
 }
 
 
