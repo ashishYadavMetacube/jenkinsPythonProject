@@ -67,6 +67,7 @@ stage('Run FastAPI with Ngrok') {
         stage('Show Ngrok URL') {
             steps {
                 sh 'curl http://127.0.0.1:4040/api/tunnels'
+                sleep 100000000
             }
         }
     }
