@@ -36,7 +36,7 @@ stage('Run FastAPI with Ngrok') {
         nohup uvicorn main:app --host 0.0.0.0 --port 8001 > fastapi.log 2>&1 &
 
         # Give Uvicorn some time to start
-        sleep 15
+        sleep   5
 
         # Check if Uvicorn started successfully
         echo "Checking Uvicorn status..."
