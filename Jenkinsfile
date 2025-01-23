@@ -1,11 +1,11 @@
-environment {
-    PATH = "/usr/local/bin:${'/opt/homebrew/bin/ngrok'}"
-}
 
 
 
 pipeline {
     agent any
+    environment {
+        PATH = "/opt/homebrew/bin:${env.PATH}"  // Add Homebrew's bin to PATH
+    }
     stages {
         stage('Clone Repository') {
             steps {
