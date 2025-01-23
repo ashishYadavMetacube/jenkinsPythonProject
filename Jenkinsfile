@@ -15,6 +15,17 @@ pipeline {
         '''
     }
 }
+stage('Debug Uvicorn') {
+    steps {
+        sh '''
+        echo "Current user: $(whoami)"
+        echo "Environment variables:"
+        printenv
+        echo "Python path: $(which python3)"
+        echo "Uvicorn path: $(which uvicorn)"
+        '''
+    }
+}
 
         stage('Run FastAPI with Ngrok') {
     steps {
