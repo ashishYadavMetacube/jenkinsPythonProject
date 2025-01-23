@@ -44,6 +44,7 @@ stage('Run FastAPI with Ngrok') {
 
         # Start Ngrok to expose FastAPI (if Uvicorn is running)
         echo "Starting Ngrok..."
+        which ngrok
         ngrok --version
         nohup ngrok http 8001 > ngrok.log 2>&1 &
 
