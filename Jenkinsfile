@@ -12,27 +12,49 @@ pipeline {
         python3 -m venv venv
         source venv/bin/activate
         pip install -r requirements.txt
-        pkill uvicorn || true
-        pkill ngrok || true
-        nohup uvicorn main:app --host 0.0.0.0 --port 8001 > fastapi.log 2>&1 &
-        sleep 10
-        nohup ngrok http 8001 > ngrok.log 2>&1 &
-        sleep 10
         '''
     }
 }
-stage('Debug Uvicorn') {
+stage('Run FastAPI with Ngrok') {
     steps {
         sh '''
-        source venv/bin/activate
-        echo "Current user: $(whoami)"
-        echo "Environment variables:"
-        printenv
-        echo "Python path: $(which python3)"
-        echo "Uvicorn path: $(which uvicorn)"
+        # Kill any existing processes to avoid conflicts
+        pkill -f uvicorn || true
+        pkill -f ngrok || true
+
+        # Activate the virtual environment (if needed)
+        source /path/to/your/venv/bin/activate || exit 1
+
+        # Start Uvicorn (FastAPI server) in the background
+        echo "Starting FastAPI with Uvicorn..."
+        nohup uvicorn main:app --host 0.0.0.0 --port 8001 > fastapi.log 2>&1 &
+
+        # Give Uvicorn some time to start
+        sleep 15
+
+        # Check if Uvicorn started successfully
+        echo "Checking Uvicorn status..."
+        tail -n 20 fastapi.log
+
+        # Start Ngrok to expose FastAPI (if Uvicorn is running)
+        echo "Starting Ngrok..."
+        nohup ngrok http 8001 > ngrok.log 2>&1 &
+
+        # Give Ngrok some time to start
+        sleep 15
+
+        # Check Ngrok logs for any errors
+        echo "Checking Ngrok status..."
+        tail -n 20 ngrok.log
+
+        # Output final log files to check for errors or issues
+        echo "Final FastAPI and Ngrok Logs:"
+        tail -n 50 fastapi.log
+        tail -n 50 ngrok.log
         '''
     }
 }
+
 
         stage('Show Ngrok URL') {
             steps {
